@@ -1,0 +1,26 @@
+# Dependencies (install with npm install)
+node_modules/
+
+# Logs and sensitive settings
+npm-debug.log*
+*.log
+.env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store
+
+# VS Code files (SNHU Module One Full Stack Guide, page 64)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Miscellaneous
+coverage/
+
+node_modules/
+.DS_Store
