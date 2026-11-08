@@ -14,6 +14,7 @@ for (const name of pages) {
   for (const match of html.matchAll(/\b(?:href|src)=["']([^"']+)["']/g)) {
     const target = match[1].split(/[?#]/)[0];
     if (!target || /^(?:[a-z][a-z0-9+.-]*:|\/\/|#|mailto:)/i.test(target)) continue;
+    if (target === '/travel') continue; // handled by the Express MVC router
     const fullPath = path.resolve(publicPath, target.replace(/^\//, ''));
     if (!fs.existsSync(fullPath)) problems.push(name + '.html references missing ' + target);
   }

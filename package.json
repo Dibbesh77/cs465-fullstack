@@ -2,11 +2,12 @@
   "name": "travlr",
   "version": "1.0.0",
   "private": true,
-  "description": "CS 465 Module One: Travlr Getaways static customer website served by Node.js and Express",
+  "description": "CS 465 Module Two: Travlr Getaways Express MVC routing and Handlebars templates",
   "scripts": {
     "start": "node ./bin/www",
     "check": "node ./scripts/check-files.js",
-    "test:server": "node ./scripts/test-server.js"
+    "test:server": "node ./scripts/test-server.js",
+    "test:mvc": "node ./scripts/test-mvc.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",

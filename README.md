@@ -1,108 +1,107 @@
-# CS 465 — Module One: Travlr Getaways
+# CS 465 Module Two - Travlr Getaways MVC Routing
 
-This is the **Module One Express website shell**, based on the provided `travlr.zip` mockup and SNHU **CS 465 Full Stack Guide**, pages 61–75. The original seven HTML pages, stylesheet, and images live in the `public/` folder, which is served by Node.js and Express.
+Builds on the provided Module One Travlr Express website, using the SNHU
+*CS 465 Full Stack Guide*, **Module 2: MVC Routing (pages 76-88)**.
 
-## Folder structure
+## What changed
 
-```
+- `app_server/controllers/main.js`: controller for the home-page fallback.
+- `app_server/controllers/travel.js`: controller rendering the Travel view.
+- `app_server/routes/index.js`, `app_server/routes/travel.js`, and
+  `app_server/routes/users.js`: Express routing separated from controllers.
+- `app_server/views/travel.hbs`: converted from the provided `travel.html`.
+- `app_server/views/partials/header.hbs` and `footer.hbs`: common navigation
+  and footer extracted from the travel page with `{{> header }}` and
+  `{{> footer }}` directives.
+- `app_server/views/layouts/layout.hbs`: original Express layout relocated,
+  as shown in the guide; the Travel view retains its own complete HTML shell.
+- `app.js`: `views` path updated; `hbs` partials registered; `/travel` router
+  mounted. Static pages, styling, and original images remain available.
+- Navigation links to the Travel page now target `/travel` so they exercise
+  the MVC route rather than the static `/travel.html` file.
+
+## Folder layout
+
+```text
 travlr/
-├── app.js                 Express application and static-file configuration
-├── bin/www                HTTP server, port 3000 by default
-├── package.json           npm dependencies and commands
-├── .gitignore             Git exclusions, including node_modules
-├── public/
-│   ├── index.html         Home page
-│   ├── travel.html        Other supplied pages
-│   ├── rooms.html
-│   ├── meals.html
-│   ├── news.html
-│   ├── about.html
-│   ├── contact.html
-│   ├── css/style.css      The supplied pages expect css/style.css
-│   ├── images/            Images from the supplied ZIP
-│   └── javascripts/
-├── routes/                Express Generator-style routes
-├── views/                 Handlebars templates for Module Two
-└── scripts/               Lightweight validation scripts
+├── app.js
+├── app_server/
+│   ├── controllers/
+│   │   ├── main.js
+│   │   └── travel.js
+│   ├── routes/
+│   │   ├── index.js
+│   │   ├── travel.js
+│   │   └── users.js
+│   └── views/
+│       ├── layouts/layout.hbs
+│       ├── partials/header.hbs
+│       ├── partials/footer.hbs
+│       ├── index.hbs
+│       ├── error.hbs
+│       └── travel.hbs
+├── bin/www
+├── public/ (original HTML pages, CSS, images)
+├── scripts/ (checks and tests)
+└── package.json
 ```
 
-## Run on your Mac
+## Start on your Mac
 
-1. Install the **LTS Node.js** version at <https://nodejs.org/en/download> if needed, then confirm in **Terminal**:
-
-   ```bash
-   node -v
-   npm -v
-   git --version
-   ```
-
-2. Unzip `CS465_Module_One_Travlr_Express.zip` in Downloads. Open Terminal and run:
-
-   ```bash
-   cd ~/Downloads/travlr
-   npm install
-   npm run check
-   npm start
-   ```
-
-   If you unzipped into a different folder, replace `~/Downloads/travlr` with its location. `npm install` requires an Internet connection the first time. Leave the Terminal window running.
-
-3. Open **<http://localhost:3000>** in your browser. Confirm that you see the styled **Travlr Getaways** website (not an unstyled page and not the default "Express" welcome page). Test the **Travel**, **Rooms**, **Meals**, **News**, **About**, and **Contact** links.
-
-4. Open a **second** Terminal and run:
-
-   ```bash
-   cd ~/Downloads/travlr
-   npm run test:server
-   ```
-
-   It should print PASS for each site resource. For a basic server check also visit **<http://localhost:3000/health>**.
-
-5. Take your own **real browser screenshot**. Show the Travlr homepage loaded at `http://localhost:3000` and the address bar visible. On Mac, press **Shift-Command-4** to select an area, or **Shift-Command-3** for the whole screen. Name the file `CS465_Module1_Express_Screenshot.png`. The screenshot must show **your running Express application**, not a mockup or preview image.
-
-## Put the files in GitHub on the `module1` branch
-
-The assignment requests that you **clone your GitHub repository**, update `.gitignore`, create a branch named `module1`, and push your work. Do this on **your computer**, using the GitHub repository you created for CS 465.
-
-If your CS 465 GitHub repository already exists:
+Open Terminal in the existing local Git project and create the required
+branch **before applying Module Two changes**:
 
 ```bash
-cd ~/Documents
-git clone https://github.com/YOUR_USERNAME/cs465-fullstack.git
-cd cs465-fullstack
-git switch -c module1
+cd ~/Desktop/travlr
+git switch module1
+git switch -c module2
 ```
 
-The clone URL and folder may differ; copy the actual **HTTPS clone URL** from your GitHub repo. If the repository already exists locally, `cd` to the existing clone instead and make sure you haven't already created a `module1` branch. Copy **the contents of `travlr/`**, not the outer `travlr` folder, into the root of that cloned repository (you can do this in Finder; preserve the hidden `.git` directory and any existing repository files). Then:
+Copy the updated project files into that directory, preserving `.git`.
+(If using the provided ZIP downloaded to Downloads, one method is:
+`unzip -o ~/Downloads/CS465_Module_Two_Travlr_MVC.zip -d ~/Desktop`.)
+Since unzipping does not delete old directories, remove the **now relocated**
+top-level `routes` and `views` folders from this new Git branch:
 
 ```bash
+git rm -r routes views
+```
+
+Then run:
+
+```bash
+cd ~/Desktop/travlr
 npm install
 npm run check
 npm start
 ```
 
-After checking the site in the browser and taking the screenshot, run the following in the cloned Git repository directory (not your stand-alone Downloads copy):
+Open **http://localhost:3000/travel**. The page should show the *Travel*
+heading, Gale Reef, Dawson's Reef, Claire's Reef, the styled navigation,
+and the original footer.
+
+Run these checks in another Terminal while the server is running:
 
 ```bash
-git status
-git add .
-git commit -m "Baseline Express Website - static only"
-git push --set-upstream origin module1
+cd ~/Desktop/travlr
+npm run test:mvc
+npm run test:server
 ```
 
-**Important:** Git needs `user.name` and `user.email` configured to commit. If prompted, use `git config user.name "YOUR NAME"` and `git config user.email "YOUR GITHUB EMAIL"`. You must authenticate with GitHub if prompted and invite your instructor as requested by the course. Do not include `node_modules/` in Git or your submission ZIP.
+For the submission, capture your own screenshot showing the browser at
+`localhost:3000/travel` alongside the Terminal displaying a working server.
 
-## What to submit in Brightspace
+## Push the Module Two branch
 
-1. **Website ZIP** — the provided `CS465_Module_One_Travlr_Express.zip` contains your website folder and Node/Express source. It intentionally excludes `node_modules`; the grader can run `npm install` to get dependencies.
-2. **Actual screenshot** — `CS465_Module1_Express_Screenshot.png`, taken *on your machine with Express running*.
-3. **GitHub requirement** — confirm the `module1` branch is pushed to your course repository. Follow any additional instructor instructions about supplying a URL.
+```bash
+cd ~/Desktop/travlr
+git status
+git add .
+git commit -m "Module Two MVC routing and Handlebars templates"
+git push -u origin module2
+```
 
-**Rubric:** functionality **33**, architecture **33**, testing **34**.
-
-## Notes
-
-- This assignment serves **static HTML through Express**. MongoDB, an API, dynamic Handlebars, and Angular belong to later modules and should not be added prematurely.
-- To match paths in the supplied HTML, the CSS is stored under **`public/css/style.css`** (not `public/stylesheets/style.css`), as explained on guide page 71.
-- Two links in the supplied homepage pointed to files that were not included in `travlr.zip` (`dives.html` and `foods.html`). They have been corrected to point to the supplied `travel.html` and `meals.html` pages. The supplied layout, images, and stylesheet are otherwise preserved.
-- If port 3000 is occupied, stop the other server using it, or run `PORT=3001 npm start` and test at `http://localhost:3001` with `PORT=3001 npm run test:server`.
+Submit the updated project ZIP in Brightspace. **Do not submit a Git repo's
+`.git` directory or `node_modules`;** those are intentionally omitted from
+the ZIP. JSON-driven trip rendering is introduced in **Module Three**, so
+this Module Two project retains the supplied trip content in the HBS view.

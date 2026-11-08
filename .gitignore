@@ -21,6 +21,3 @@ npm-debug.log*
 
 # Miscellaneous
 coverage/
-
-node_modules/
-.DS_Store
