@@ -2,6 +2,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+require('./app_server/models/db');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const hbs = require('hbs');
