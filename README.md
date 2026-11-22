@@ -100,8 +100,3 @@ git add .
 git commit -m "Module Two MVC routing and Handlebars templates"
 git push -u origin module2
 ```
-
-Submit the updated project ZIP in Brightspace. **Do not submit a Git repo's
-`.git` directory or `node_modules`;** those are intentionally omitted from
-the ZIP. JSON-driven trip rendering is introduced in **Module Three**, so
-this Module Two project retains the supplied trip content in the HBS view.
