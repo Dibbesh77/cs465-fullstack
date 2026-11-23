@@ -8,7 +8,7 @@ const dbURI = process.env.MONGODB_URI ||
 
 async function seedDatabase() {
   try {
-    const filePath = path.join(__dirname, '../data/trips.json');
+    const filePath = path.join(__dirname, '../../app_server/data/trips.json');
     const trips = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
     await mongoose.connect(dbURI);
